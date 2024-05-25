@@ -9,14 +9,14 @@ import {Contract} from './model'
 // that defines where to get the data and what data should we get.
 const dataSource = new DataSourceBuilder()
     // Provide Subsquid Network Gateway URL.
-    .setGateway('https://v2.archive.subsquid.io/network/fuel-stage-5')
+    .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
     // Subsquid Network is always about 10000 blocks behind the head.
     // We must use regular GraphQL endpoint to get through the last mile
     // and stay on top of the chain.
     // This is a limitation, and we promise to lift it in the future!
     .setGraphql({
-        url: 'https://beta-5.fuel.network/graphql',
-        strideConcurrency: 2,
+        url: 'https://testnet.fuel.network/v1/graphql',
+        strideConcurrency: 3,
         strideSize: 50
     })
     // Block data returned by the data source has the following structure:
