@@ -5,14 +5,14 @@ import {TypeormDatabase} from '@subsquid/typeorm-store'
 import {Contract} from './model'
 
 
-// First we create a DataSource - component,
-// that defines where to get the data and what data should we get.
+// First we create a DataSource - the component that
+// defines what data we need and where to get it
 const dataSource = new DataSourceBuilder()
-    // Provide Subsquid Network Gateway URL.
+    // Provide a Subsquid Network Gateway URL
     .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
     // Subsquid Network is always about 10000 blocks behind the head.
-    // We must use regular GraphQL endpoint to get through the last mile
-    // and stay on top of the chain.
+    // We must use a regular GraphQL endpoint to get through
+    // the last mile and stay on top of the chain.
     // This is a limitation, and we promise to lift it in the future!
     .setGraphql({
         url: 'https://testnet.fuel.network/v1/graphql',
@@ -23,39 +23,39 @@ const dataSource = new DataSourceBuilder()
     //
     // interface Block {
     //     header: BlockHeader
+    //     receipts: Receipt[]
     //     transactions: Transaction[]
     //     inputs: Input[]
     //     outputs: Output[]
     // }
     //
-    // For each block item we can specify a set of fields we want to fetch via `.setFields()` method.
-    // Think about it as of SQL projection.
+    // For each block item we can specify a set of fields
+    //  we want to fetch via the `.setFields()` method.
+    // Think about it as of an SQL projection.
     //
-    // Accurate selection of only required fields can have a notable positive impact
-    // on performance when data is sourced from Subsquid Network.
+    // Accurate selection of only the required fields
+    // can have a notable positive impact on performance
+    // when the data is sourced from Subsquid Network.
     //
-    // We do it below only for illustration as all fields we've selected
-    // are fetched by default.
+    // We do it below only for illustration as all fields we've
+    // selected are fetched by default.
     //
-    // It is possible to override default selection by setting undesired fields to `false`.
+    // It is possible to override default selection by setting
+    // the flags for undesirable fields to `false`.
     .setFields({
         receipt: {
             contract: true,
             receiptType: true
         }
     })
-    // By default, block can be skipped if it doesn't contain explicitly requested items.
-    //
     // We request items via `.addXxx()` methods.
     //
     // Each `.addXxx()` method accepts item selection criteria
     // and also allows to request related items.
-    //
     .addReceipt({
         type: ['LOG_DATA']
     })
     .build()
-
 
 // Once we've prepared a data source we can start fetching the data right away:
 //
@@ -66,7 +66,6 @@ const dataSource = new DataSourceBuilder()
 // }
 //
 // However, Subsquid SDK can also help to transform and persist the data.
-//
 
 // Data processing in Subsquid SDK is defined by four components:
 //
@@ -82,7 +81,6 @@ const dataSource = new DataSourceBuilder()
 // storage API and is responsible for entire data transformation.
 //
 // Processor connects and executes above three components.
-//
 
 // Below we create a `TypeormDatabase`.
 //
@@ -98,8 +96,7 @@ const dataSource = new DataSourceBuilder()
 // https://github.com/subsquid/squid-sdk/blob/278195bd5a5ed0a9e24bfb99ee7bbb86ff94ccb3/typeorm/typeorm-config/src/config.ts#L21
 const database = new TypeormDatabase()
 
-
-// Now we are ready to start data processing
+// Now we are ready to start processing the data
 run(dataSource, database, async ctx => {
     // Block items that we get from `ctx.blocks` are flat JS objects.
     //
