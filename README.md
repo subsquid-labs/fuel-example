@@ -27,9 +27,9 @@ npx squid-typeorm-migration apply
 # Run indexer
 node -r dotenv/config lib/main.js
 
-# Checkout indexed swaps
+# Checkout indexed logs
 docker exec "$(basename "$(pwd)")-db-1" psql -U postgres \
   -c "SELECT id, logs_count, found_at FROM contract ORDER BY logs_count desc LIMIT 10"
 ```
 
-For further details please consult heavily commented [main.ts](./src/main.ts).
+Visit the documentation page for more details on using subsquid for Fuel.
