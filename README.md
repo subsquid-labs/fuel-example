@@ -13,7 +13,7 @@ This project shows how one can index Fuel network using Subsquid SDK.
 
 ```bash
 # Install dependencies
-npm ci
+npm i
 
 # Compile the project
 npx tsc
