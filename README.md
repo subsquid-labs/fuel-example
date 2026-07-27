@@ -1,5 +1,13 @@
 # fuel-example
 
+> **⚠️ Data source discontinued.** The SQD Network gateway and Portal dataset for
+> Fuel have been retired — `https://v2.archive.subsquid.io/network/fuel-mainnet`
+> and `https://portal.sqd.dev/datasets/fuel-mainnet` both return 404. As a result
+> **this template can no longer sync from SQD infrastructure.** It is kept for
+> reference and still builds, but it will not ingest data without an alternative
+> source. See the deprecation announcement:
+> https://docs.sqd.dev/announcements/gateway-deprecations-may-2026
+
 This project shows how one can index Fuel network using Subsquid SDK.
 
 ## Getting started
